@@ -8,19 +8,20 @@ create table PERSONNE(
 );
 
 create table ADHERANT(
-    id int primary key,
+    idA int primary key,
     poidsA int,
     niveauA varchar(20)
 );
 
 create table MONITEUR(
-    id int primary key,
+    idM int primary key,
     salaireM int,
     anneeRecrutement int
 );
 
 create table PONEY(
     idP int primary key,
+    nomP varchar(20) unique,
     poidsMax int
 );
 
@@ -45,6 +46,8 @@ create table RESERVER(
     primary key(idA, idP, idC)
 );
 
+alter table ADHERANT add foreign key (idA) references PERSONNE (id);
+alter table MONITEUR add foreign key (idM) references PERSONNE (id);
 alter table COURS add foreign key (idM) references MONITEUR (id);
 alter table RESERVER add foreign key(idA) references ADHERANT (id);
 alter table RESERVER add foreign key (idP) references PONEY (idP);
