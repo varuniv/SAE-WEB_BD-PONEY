@@ -45,7 +45,7 @@ create table RESERVER(
     primary key(idA, idP, idC)
 );
 
-alter table COURS add foreign key (idM) references MONITEUR (idM);
-alter table RESERVER add foreign key(idA) references ADHERANT (idA);
+alter table COURS add foreign key (idM) references MONITEUR (id);
+alter table RESERVER add foreign key(idA) references ADHERANT (id);
 alter table RESERVER add foreign key (idP) references PONEY (idP);
 alter table RESERVER add foreign key (idC) references COURS (idC);
