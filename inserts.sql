@@ -1,26 +1,65 @@
 -- Inserts des personnes
 insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, Orléans', 'dupont.michel@gmail.com', 12),
                             (2,'Kirby', 'DesctructeurDesMondes', 'DreamLand,POP','poyo@gmail.com',200),
+                            (3, 'Jean', 'Paul', '2 avenue Toto, Bourges', 'jpaul@orange.fr', 42),
+                            (4, 'Alex', 'Roger', '1 rue De Gaulle, Orléans', 'alex@mail.com', 23),
                             (101, 'Jean-Pierre', 'Polnaref', 'Tortue', 'jeanpierre@yahoo.com', 65),
-                            (102, 'Toto', 'Titi', '1 rue de Tata, Olivet', 'toto@tutu.com', 18); 
+                            (102, 'Toto', 'Titi', '1 rue de Tata, Olivet', 'toto@tutu.com', 18),
+                            (5, 'Sophie', 'Lefevre', '12 rue du Parc, Nantes', 'sophie.lefevre@gmail.com', 30),
+                            (6, 'Luca', 'Moretti', '3 avenue de la Mer, Nice', 'luca.moretti@hotmail.com', 27),
+                            (7, 'Emma', 'Dubois', '45 boulevard de la Liberté, Lyon', 'emma.dubois@gmail.com', 35),
+                            (8, 'Tom', 'Hanks', '56 rue du Cinema, Paris', 'tom.hanks@gmail.com', 50); 
 
 -- Inserts des adhérants
 insert into ADHERANT values (1, 41, 'Junior'),
-                            (2, 35, 'Junior');
+                            (2, 35, 'Junior'),
+                            (3, 69, 'Amateur'),
+                            (4, 58, 'Espoir'),
+                            (5, 70, 'Junior'),
+                            (6, 65, 'Amateur'),
+                            (7, 80, 'Espoir'),
+                            (8, 55, 'Senior');
 
 -- Inserts des moniteurs
 insert into MONITEUR values (101, 15000, 1989),
-                            (102, 4269, 2022);
+                            (102, 4269, 2022),
+                            (103, 5000, 2015),
+                            (104, 3000, 2021);
 
 -- Inserts des poneys
 insert into PONEY values (151,'Moew',50),
                         (152,'Abyss',45),
                         (153,'Caramel Salé',30),
                         (154,'Caramel',50),
-                        (155,'Shtorm',40);
+                        (155,'Shtorm',40),
+                        (156, 'Shadow', 55),
+                        (157, 'Blaze', 48),
+                        (158, 'Poppy', 60),
+                        (159, 'Twilight', 47),
+                        (160, 'Ginger', 52);
 
 -- Inserts des dates des cours
 insert into CRENEAU values ('2024-12-01', '18:30:00'),
-                           ('2024-12-01', '19:30:00');
+                           ('2024-12-01', '19:30:00'),
+                           ('2024-12-08', '14:45:00'),
+                           ('2024-12-08', '16:45:00'),
+                           ('2024-12-15', '10:25:00'),
+                           ('2025-01-03', '19:45:00');
 
-insert into COURS values (1001, 10, 1, 101, 'Junior');
+-- Inserts des cours
+insert into COURS values (1001, 10, 1, 101, 'Junior'),
+                         (1002, 8, 2, 102, 'Amateur'),
+                         (1003, 1, 2, 102, 'Espoir'),
+                         (1004, 12, 1, 103, '2024-12-10', '09:00:00', 'Junior'),
+                         (1005, 10, 2, 104, '2024-12-10', '10:30:00', 'Amateur'),
+                         (1006, 5, 1, 103, '2024-12-11', '14:00:00', 'Espoir');
+
+-- Inserts des réservations aux cours et des poneys
+insert into RESERVER values (1, 151, 1001),
+                            (2, 152, 1001),
+                            (3, 153, 1002),
+                            (4, 155, 1003),;
+                            (5, 156, 1004),
+                            (6, 157, 1004),
+                            (7, 158, 1005),
+                            (8, 159, 1006);

@@ -33,9 +33,12 @@ create table CRENEAU(
 
 create table COURS(
     idC int primary key,
-    nbPers int,
+    nomC varchar(40),
+    nbPersMax int,
     dureeC int,
     idM int,
+    dateC date,
+    heureC time,
     niveauC varchar(20)
 );
 
@@ -49,6 +52,9 @@ create table RESERVER(
 alter table ADHERANT add foreign key (idA) references PERSONNE (id);
 alter table MONITEUR add foreign key (idM) references PERSONNE (id);
 alter table COURS add foreign key (idM) references MONITEUR (id);
+alter table COURS add foreign key (dateC) references CRENEAU (dateC);
+alter table COURS add foreign key (heureC) references CRENEAU (heureC);
 alter table RESERVER add foreign key(idA) references ADHERANT (id);
 alter table RESERVER add foreign key (idP) references PONEY (idP);
 alter table RESERVER add foreign key (idC) references COURS (idC);
+
