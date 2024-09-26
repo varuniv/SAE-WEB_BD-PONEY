@@ -1,37 +1,37 @@
-create table PERSONNE(
+create or replace table PERSONNE(
     id int primary key,
-    nom varchar(20),
     prenom varchar(20),
+    nom varchar(20),
     adresse varchar(50),
     mail varchar(30),
     age int
 );
 
-create table ADHERANT(
+create or replace table ADHERANT(
     idA int primary key,
     poidsA int,
     niveauA varchar(20)
 );
 
-create table MONITEUR(
+create or replace table MONITEUR(
     idM int primary key,
     salaireM int,
     anneeRecrutement int
 );
 
-create table PONEY(
+create or replace table PONEY(
     idP int primary key,
     nomP varchar(20) unique,
     poidsMax int
 );
 
-create table CRENEAU(
+create or replace table CRENEAU(
     dateC date,
     heureC time,
     primary key(dateC, heureC)
 );
 
-create table COURS(
+create or replace table COURS(
     idC int primary key,
     nomC varchar(40),
     nbPersMax int,
@@ -42,7 +42,7 @@ create table COURS(
     niveauC varchar(20)
 );
 
-create table RESERVER(
+create or replace table RESERVER(
     idA int,
     idP int,
     idC int,
@@ -51,10 +51,9 @@ create table RESERVER(
 
 alter table ADHERANT add foreign key (idA) references PERSONNE (id);
 alter table MONITEUR add foreign key (idM) references PERSONNE (id);
-alter table COURS add foreign key (idM) references MONITEUR (id);
-alter table COURS add foreign key (dateC) references CRENEAU (dateC);
-alter table COURS add foreign key (heureC) references CRENEAU (heureC);
-alter table RESERVER add foreign key(idA) references ADHERANT (id);
+alter table COURS add foreign key (idM) references MONITEUR (idM);
+alter table COURS add foreign key (dateC, heureC) references CRENEAU (dateC, heureC);
+alter table RESERVER add foreign key(idA) references ADHERANT (idA);
 alter table RESERVER add foreign key (idP) references PONEY (idP);
 alter table RESERVER add foreign key (idC) references COURS (idC);
 
