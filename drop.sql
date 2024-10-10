@@ -1,3 +1,5 @@
+-- Fichier pour drop les tables existantes
+
 drop table if exists RESERVER;
 drop table if exists COURS;
 drop table if exists CRENEAU;

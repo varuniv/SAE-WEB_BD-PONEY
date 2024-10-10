@@ -8,7 +8,7 @@ create or replace table PERSONNE(
 );
 
 create or replace table ADHERANT(
-    idA int primary key,
+    idA int(20) primary key,
     poidsA int,
     niveauA varchar(20)
 );
@@ -20,7 +20,7 @@ create or replace table MONITEUR(
 );
 
 create or replace table PONEY(
-    idP int primary key,
+    idP int(20) primary key,
     nomP varchar(20) unique,
     poidsMax int
 );
@@ -32,7 +32,7 @@ create or replace table CRENEAU(
 );
 
 create or replace table COURS(
-    idC int primary key,
+    idC int(20) primary key,
     nomC varchar(40),
     nbPersMax int,
     dureeC int,
@@ -43,11 +43,13 @@ create or replace table COURS(
 );
 
 create or replace table RESERVER(
-    idA int,
-    idP int,
-    idC int,
+    idA int(20),
+    idP int(20),
+    idC int(20),
     primary key(idA, idP, idC)
 );
+
+-- Clés étrangères
 
 alter table ADHERANT add foreign key (idA) references PERSONNE (id);
 alter table MONITEUR add foreign key (idM) references PERSONNE (id);
