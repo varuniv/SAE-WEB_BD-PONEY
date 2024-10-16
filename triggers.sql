@@ -49,55 +49,13 @@ begin
     end if;
 end |
 
+-- Les cours ne peuvent être effectués de 20h à 8h
 
--- create or replace trigger tempsReposSuffisant before insert on RESERVER for each row
--- begin
---     declare mes varchar(200) default "";
---     declare idPoney int;
---     declare idCours int;
---     declare heureCreneau hour;
---     declare minuteCreneau minute;
---     declare dateCreneau date;
---     declare dureeCours int;
---     -- declare fini boolean default false;
---     -- declare lesCours cursor for select idC from COURS where;
---     select idP, idC into idPoney, idCours from RESERVER where idA=new.idA and idP=new.idP and idC=new.idC;
---     select hour(heureC), minute(heureC), dateC, dureeC into heureCreneau, minuteCreneau, dateCreneau, dureeCours from COURS where idC=idCours;
-
-    
-
-
--- delimiter ;
-
-
-
-CREATE or replace TRIGGER check_poney_repos BEFORE INSERT ON RESERVER FOR EACH ROW
-BEGIN
-    DECLARE cours_duree INT;
-    declare dateCoursNew date;
-    DECLARE heureCoursNew TIME;
-    
-    -- Récupérer la durée du cours réservé (2 heures par exemple)
-    SELECT dureeC INTO cours_duree
-    FROM COURS
-    WHERE idC = NEW.idC;
-    select dateC into dateCoursNew from COURS where idC = NEW.idC;
-    select heureC into heureCoursNew from COURS where idC = NEW.idC;
-
-
-    -- Vérifier si le poney a été réservé dans les 2 heures avant ce cours
-    IF (cours_duree = 2) then
-        IF EXISTS (
-            SELECT 1
-            FROM RESERVER R
-            JOIN COURS C ON R.idC = C.idC
-            WHERE R.idP = NEW.idP
-            AND TIMESTAMPDIFF(HOUR, CONCAT(C.dateC, ' ', C.heureC), CONCAT(dateCoursNew, ' ', heureCoursNew)) < (2 + cours_duree)
-        ) THEN
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Ce poney doit se reposer pendant une heure après avoir fait deux heures de cours.';
-        END IF;
-    END IF;  
-END |
-
-DELIMITER ;
+create or replace trigger heuresSansCours before insert on COURS for each row
+begin
+    declare mes varchar(200) default "";
+    if hour(new.heureC)>20 or hour(new.heureC)<8 then
+        set mes=concat("Le cours ",new.nomC, " ne peut pas avoir lieu. Le créneau ne doit pas être entre 20h et 8h");
+        signal SQLSTATE '45000' set MESSAGE_TEXT=mes;
+    end if;
+end |
