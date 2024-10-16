@@ -49,6 +49,17 @@ begin
     end if;
 end |
 
+-- Un créneau n'est pas compris entre 20h et 8h
+
+create or replace trigger creneauCorrecte before insert on CRENEAU for each row
+begin
+    declare mes varchar(200) default "";
+    if hour(new.heureC)>20 or hour(new.heureC)<8 then
+        set mes=concat("Le créneau ne doit pas être compris entre 20h et 8h");
+        signal SQLSTATE "45000" set MESSAGE_TEXT=mes;
+    end if;
+end |
+
 -- Les cours ne peuvent être effectués de 20h à 8h
 
 create or replace trigger heuresSansCours before insert on COURS for each row
@@ -57,5 +68,44 @@ begin
     if hour(new.heureC)>20 or hour(new.heureC)<8 then
         set mes=concat("Le cours ",new.nomC, " ne peut pas avoir lieu. Le créneau ne doit pas être entre 20h et 8h");
         signal SQLSTATE '45000' set MESSAGE_TEXT=mes;
+    end if;
+end |
+
+-- Un moniteur ne peut pas avoir un cours qui commence pendant un autre cours qu'il gère
+
+create or replace function moniteurOccupe(dateCours date, heureCours time, idMoniteur int) returns boolean
+begin
+    declare estOccupe boolean default false;
+    declare dateDebut date;
+    declare heureDebut int;
+    declare heureFin int;
+    declare dureeCours int;
+    declare fini boolean default false;
+    declare coursDuMoniteur cursor for select dateC,heureC,dureeC from COURS where idM=idMoniteur;
+    declare continue handler for not found set fini = true ;
+    set heureFin=hour(heureDebut)+dureeCours;
+    open coursDuMoniteur;
+    while not fini do
+        fetch coursDuMoniteur into dateDebut,heureDebut,dureeCours;
+        if not fini then
+            if dateCours=dateDebut then
+                if hour(heureCours)>heureDebut and hour(heureCours)<heureFin then
+                    set estOccupe=true;
+                end if;
+            end if;
+        end if;
+    end while;
+    close coursDuMoniteur;
+    return estOccupe;
+end |
+
+create or replace trigger moniteurPasDispo before insert on COURS for each row
+begin
+    declare mes varchar(200) default "";
+    declare moniteurOccupe boolean;
+    select moniteurOccupe(new.dateC,new.heureC,new.idM) into moniteurOccupe;
+    if not moniteurOccupe then
+        set mes=concat("Le moniteur a déjà un cours sur le créneau: ",new.dateC,", ",new.heureC);
+        signal SQLSTATE "45000" set MESSAGE_TEXT=mes;
     end if;
 end |
