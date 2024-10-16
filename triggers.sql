@@ -71,41 +71,13 @@ begin
     end if;
 end |
 
--- Un moniteur ne peut pas avoir un cours qui commence pendant un autre cours qu'il gère
+-- Un cours ne peut durer plus de 2 heures
 
-create or replace function moniteurOccupe(dateCours date, heureCours time, idMoniteur int) returns boolean
-begin
-    declare estOccupe boolean default false;
-    declare dateDebut date;
-    declare heureDebut int;
-    declare heureFin int;
-    declare dureeCours int;
-    declare fini boolean default false;
-    declare coursDuMoniteur cursor for select dateC,heureC,dureeC from COURS where idM=idMoniteur;
-    declare continue handler for not found set fini = true ;
-    set heureFin=hour(heureDebut)+dureeCours;
-    open coursDuMoniteur;
-    while not fini do
-        fetch coursDuMoniteur into dateDebut,heureDebut,dureeCours;
-        if not fini then
-            if dateCours=dateDebut then
-                if hour(heureCours)>heureDebut and hour(heureCours)<heureFin then
-                    set estOccupe=true;
-                end if;
-            end if;
-        end if;
-    end while;
-    close coursDuMoniteur;
-    return estOccupe;
-end |
-
-create or replace trigger moniteurPasDispo before insert on COURS for each row
+create or replace trigger dureeInferieureDureeMax before insert on COURS for each row
 begin
     declare mes varchar(200) default "";
-    declare moniteurOccupe boolean;
-    select moniteurOccupe(new.dateC,new.heureC,new.idM) into moniteurOccupe;
-    if not moniteurOccupe then
-        set mes=concat("Le moniteur a déjà un cours sur le créneau: ",new.dateC,", ",new.heureC);
+    if new.dureeC>2 then
+        set mes=concat("Le cours ", new.nomC, " dure plus de 2 heures");
         signal SQLSTATE "45000" set MESSAGE_TEXT=mes;
     end if;
 end |
