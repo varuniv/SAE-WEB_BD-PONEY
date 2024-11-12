@@ -81,3 +81,45 @@ begin
         signal SQLSTATE "45000" set MESSAGE_TEXT=mes;
     end if;
 end |
+
+-- Un moniteur ne peut avoir un cours qui commence pendant un autre
+
+create or replace trigger pasDeCoursPendantUnCours before insert on COURS for each row
+begin
+    declare mes varchar(200) default "";
+    declare fini boolean default false;
+    declare dateNewCours date;
+    declare heureNewCours time;
+    declare dureeNewCours int default 0;
+    declare dateCours date;
+    declare heureCours time;
+    declare dureeCours int default 0;
+    declare heureFinCours time;
+    declare heureFinNewCours time;
+    
+    declare coursDuMoniteur cursor for select dateC, heureC, dureeC from COURS where idM = new.idM;
+    
+    declare continue handler for not found set fini = true;
+
+    set dateNewCours = new.dateC;
+    set heureNewCours = new.heureC;
+    set dureeNewCours = new.dureeC;
+    
+    set heureFinNewCours = addtime(heureNewCours, sec_to_time(dureeNewCours * 60));
+
+    open coursDuMoniteur;
+    while not fini do
+        fetch coursDuMoniteur into dateCours, heureCours, dureeCours;
+        set heureFinCours = addtime(heureCours, sec_to_time(dureeCours * 60));
+        if dateNewCours = dateCours then
+            if (heureNewCours < heureFinCours and heureFinNewCours > heureCours) then
+                set fini=true;
+                set mes = concat("Le moniteur a déjà un cours pendant le créneau");
+                signal sqlstate "45000" set message_text = mes;
+            end if;
+        end if;
+    end while;
+    close coursDuMoniteur;
+end |
+
+delimiter ;

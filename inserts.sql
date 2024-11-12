@@ -41,7 +41,7 @@ insert into PONEY values (151,'Moew',50),
                         (160, 'Ginger', 52);
 
 -- Inserts des dates des cours
-insert into CRENEAU values ('2024-12-01', '19:30:00'),
+insert into CRENEAU values ('2024-12-01', '19:00:00'),
                            ('2024-12-08', '14:00:00'),
                            ('2024-12-08', '16:00:00'),
                            ('2024-12-11', '14:00:00'),
@@ -58,7 +58,7 @@ insert into CRENEAU values ('2024-12-01', '19:30:00'),
 
 -- Inserts des cours 
 insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2024-12-16', '10:00:00', 'Junior'),
-                         (1002,"Entrainement d'equitation", 8, 2, 102,'2024-12-17', '13:00:00','Amateur'),
+                         (1002,"Entrainement d'equitation", 8, 2, 102,'2024-12-16', '11:00:00','Amateur'),
                          (1003,"Farming XP", 1, 2, 102,'2024-12-16', '18:00:00','Espoir'),
                          (1004,"Entrainement", 12, 1, 103, '2024-12-16', '9:00:00', 'Junior'),
                          (1005,"Course", 10, 2, 101, '2024-12-16', '11:00:00', 'Amateur'),
