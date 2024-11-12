@@ -61,9 +61,8 @@ insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2024-12-1
                          (1002,"Entrainement d'equitation", 8, 2, 102,'2024-12-16', '11:00:00','Amateur'),
                          (1003,"Farming XP", 1, 2, 102,'2024-12-16', '18:00:00','Espoir'),
                          (1004,"Entrainement", 12, 1, 103, '2024-12-16', '9:00:00', 'Junior'),
-                         (1005,"Course", 10, 2, 101, '2024-12-16', '11:00:00', 'Amateur'),
-                         (1006,"Level up", 5, 1, 103, '2024-12-16', '12:00:00', 'Senior'),
-                         (1007,"Cours théorique", 30, 2, 104, '2024-12-16', '18:00:00', 'Junior');
+                         (1005,"Course", 10, 1, 104, '2024-12-16', '10:00:00', 'Amateur'),
+                         (1006,"Level up", 5, 1, 103, '2024-12-16', '12:00:00', 'Senior');
 
 -- Inserts des réservations aux cours et des poneys
 insert into RESERVER values (1, 151, 1001),
@@ -71,6 +70,6 @@ insert into RESERVER values (1, 151, 1001),
                             (3, 153, 1002),
                             (4, 155, 1003),
                             (5, 156, 1004),
-                            (6, 157, 1004),
-                            (7, 157, 1005),
+                            (6, 159, 1004),
+                            (7, 158, 1005),
                             (8, 159, 1006);
