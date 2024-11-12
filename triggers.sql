@@ -50,54 +50,48 @@ begin
 end |
 
 
--- create or replace trigger tempsReposSuffisant before insert on RESERVER for each row
--- begin
---     declare mes varchar(200) default "";
---     declare idPoney int;
---     declare idCours int;
---     declare heureCreneau hour;
---     declare minuteCreneau minute;
---     declare dateCreneau date;
---     declare dureeCours int;
---     -- declare fini boolean default false;
---     -- declare lesCours cursor for select idC from COURS where;
---     select idP, idC into idPoney, idCours from RESERVER where idA=new.idA and idP=new.idP and idC=new.idC;
---     select hour(heureC), minute(heureC), dateC, dureeC into heureCreneau, minuteCreneau, dateCreneau, dureeCours from COURS where idC=idCours;
-
-    
-
-
--- delimiter ;
-
-
-
-CREATE or replace TRIGGER check_poney_repos BEFORE INSERT ON RESERVER FOR EACH ROW
-BEGIN
-    DECLARE cours_duree INT;
-    declare dateCoursNew date;
-    DECLARE heureCoursNew TIME;
-    
-    -- Récupérer la durée du cours réservé (2 heures par exemple)
-    SELECT dureeC INTO cours_duree
-    FROM COURS
-    WHERE idC = NEW.idC;
-    select dateC into dateCoursNew from COURS where idC = NEW.idC;
-    select heureC into heureCoursNew from COURS where idC = NEW.idC;
+create or replace function poneyfatigue(idPoney int, dateCreneau date, heureCren time) returns boolean
+begin
+    declare compteur int default 0;
+    declare idCours int;
+    declare dureeCours int;
+    declare result boolean default false;
+    declare fini boolean default false;
+    declare lesCours cursor for select idC, dureeC from COURS where dateC = dateCreneau 
+        and heureC <= heureCren and ADDTIME(heureC, sec_to_time(dureec * 3600)) >= heureCren - interval 2 hour;         
+    declare continue handler for not found set fini = true;
+    open lesCours;
+    while not fini do
+        fetch lesCours into idCours, dureeCours;  
+        if not fini then
+            if exists (select 1 from RESERVER where idP = idPoney and idC = idCours) then
+                set compteur = compteur + dureeCours;
+                if compteur >= 2 then
+                    set result = true;
+                end if;
+            end if;
+        end if;
+    end while;
+    close lesCours;
+    return result;
+end |
 
 
-    -- Vérifier si le poney a été réservé dans les 2 heures avant ce cours
-    IF (cours_duree = 2) then
-        IF EXISTS (
-            SELECT 1
-            FROM RESERVER R
-            JOIN COURS C ON R.idC = C.idC
-            WHERE R.idP = NEW.idP
-            AND TIMESTAMPDIFF(HOUR, CONCAT(C.dateC, ' ', C.heureC), CONCAT(dateCoursNew, ' ', heureCoursNew)) < (2 + cours_duree)
-        ) THEN
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Ce poney doit se reposer pendant une heure après avoir fait deux heures de cours.';
-        END IF;
-    END IF;  
-END |
+create or replace trigger check_poney_repos before insert on RESERVER for each row
+begin
+    declare dateCreneau date;
+    declare heureCreneau time;
+    declare poneyIndisponible boolean;
+    declare mes varchar(200);
+    select dateC, heureC 
+    into dateCreneau, heureCreneau 
+    from COURS 
+    where idC = new.idC;
+    select poneyfatigue(new.idP, dateCreneau, heureCreneau) into poneyIndisponible;
+    if poneyIndisponible then
+        set mes = "réservation impossible. le poney est fatigué et doit se reposer";
+        signal SQLSTATE '45000' set message_text = mes;
+    end if;
+end |
 
-DELIMITER ;
+delimiter ;
