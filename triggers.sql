@@ -49,7 +49,17 @@ begin
     end if;
 end |
 
+-- Un créneau n'est pas compris entre 20h et 8h
+create or replace trigger creneauCorrecte before insert on CRENEAU for each row
+begin
+    declare mes varchar(200) default "";
+    if hour(new.heureC)>20 or hour(new.heureC)<8 then
+        set mes=concat("Le créneau ne doit pas être compris entre 20h et 8h");
+        signal SQLSTATE "45000" set MESSAGE_TEXT=mes;
+    end if;
+end |
 
+-- Un poney est fatigué quand il a eu 2 heure de cours sans pause (retour true si il est fatigué)
 create or replace function poneyfatigue(idPoney int, dateCreneau date, heureCren time) returns boolean
 begin
     declare compteur int default 0;
@@ -76,7 +86,7 @@ begin
     return result;
 end |
 
-
+-- Un poney ne peut pas être réservé tout de suite après deux heures de cours
 create or replace trigger check_poney_repos before insert on RESERVER for each row
 begin
     declare dateCreneau date;
@@ -94,4 +104,24 @@ begin
     end if;
 end |
 
-delimiter ;
+-- Un cours ne peut durer plus de 2 heures
+
+create or replace trigger dureeInferieureDureeMax before insert on COURS for each row
+begin
+    declare mes varchar(200) default "";
+    if new.dureeC>2 then
+        set mes=concat("Le cours ", new.nomC, " dure plus de 2 heures");
+        signal SQLSTATE "45000" set MESSAGE_TEXT=mes;
+    end if;
+end |
+
+
+-- Les cours ne peuvent être effectués de 20h à 8h
+create or replace trigger heuresSansCours before insert on COURS for each row
+begin
+    declare mes varchar(200) default "";
+    if hour(new.heureC)>20 or hour(new.heureC)<8 then
+        set mes=concat("Le cours ",new.nomC, " ne peut pas avoir lieu. Le créneau ne doit pas être entre 20h et 8h");
+        signal SQLSTATE '45000' set MESSAGE_TEXT=mes;
+    end if;
+end |
