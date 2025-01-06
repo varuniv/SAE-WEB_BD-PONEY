@@ -19,11 +19,11 @@
 </head>
 <body style="margin: 0;height:100%">
     <header>
-        <nav>
-            <div style="display: flex;background-color: black;position: fixed;width: 100%;padding: 1rem 20px;">
-                <button style="padding: 10px;background-color: #F5DF4D;border-radius: 40%;">
-                    <a href="login.php">Accueil</a>
-                </button>
+        <nav class = "navbar border justify-content-auto " style= "background-color:#AF8669">
+            <div>
+                
+                <a class = "btn rounded-3 mx-5 border-1 border-dark" style= "background-color:#F5DF4D" href="login.php">Accueil</a>
+               
             </div>
         </nav>
     </header>
