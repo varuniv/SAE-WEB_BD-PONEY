@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+
+#header_barre{
+    display: flex;
+    background-color: black;
+    position: fixed;
+    width: 100%;
+    padding: 1rem 20px;
+}
+
+body{
+    margin: 0;
+}
+
+.header-btn{
+    padding: 10px;
+    background-color: #F5DF4D;
+    border-radius: 40%;
+}
+
+.main{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.aside{
+    background-color: #F0EEE9;
+    padding: 2rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.loginLab{
+    color:#CF5C78;
+    margin:1em;
+}
+
+.submit-btn{
+    display: flex;
+    flex-direction: column;
+}
+.submit-btn input{
+    margin:1em;
+}
+
+.loginInputs{
+    border-radius: 5px;
+}
+
+#connect{
+    background-color: #F5DF4D;
+    border-color: black;
+}
