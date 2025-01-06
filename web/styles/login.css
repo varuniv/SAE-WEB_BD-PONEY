@@ -3,6 +3,14 @@
     flex-wrap: wrap;
 }
 
+.login_div{
+    display: flex;
+    background-color: #F0EEE9; 
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+
 .aside{
     background-color: #F0EEE9;
     padding: 2rem;
