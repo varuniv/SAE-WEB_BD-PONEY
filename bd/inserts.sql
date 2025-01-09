@@ -10,7 +10,8 @@ insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, Orléans',
                             (101, 'Jean-Pierre', 'Polnaref', 'Tortue', 'jeanpierre@yahoo.com', 35),
                             (102, 'Toto', 'Titi', '1 rue de Tata, Olivet', 'toto@tutu.com', 18),
                             (103, 'Lisa', 'Atwood', 'Laferme', 'lisa.at.wood@yahoo.com', 20),
-                            (104, 'Julien', 'Coucou', '1 Rue du Ranch, Chat', 'coucou@yahoo.com', 89);
+                            (104, 'Julien', 'Coucou', '1 Rue du Ranch, Chat', 'coucou@yahoo.com', 89),
+                            (105, 'Franklin', 'Clinton', '3 avenue Toto', 'Bourges', 'fc@coucou.fr', 34);
 
 -- Inserts des adhérants
 insert into ADHERANT values (1, 41, 'Junior'),

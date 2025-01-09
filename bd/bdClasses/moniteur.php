@@ -1,4 +1,6 @@
 <?php
+
+namespace classes;
 class Moniteur extends Personne{
     private int $idM;
     private int $salaire;
@@ -26,6 +28,12 @@ class Moniteur extends Personne{
     public function setId(int $idM):void{
         parent::setId($idM);
         $this->idM=$idM;
+    }
+
+    public function __toString():String{
+        $attrsGeneraux=parent::__toString();
+        $moniteur="Id du moniteur: $idM, $attrsGeneraux, Salaire: $salaire, Recruté en: $anneeRecrutement";
+        return $moniteur;
     }
 }
 ?>

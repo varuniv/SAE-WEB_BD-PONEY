@@ -1,4 +1,6 @@
 <?php
+
+namespace classes;
 class Adherant extends Personne{
     private int $idA;
     private int $poids;
@@ -34,6 +36,12 @@ class Adherant extends Personne{
 
     public function setNiveau(String $niveau):void{
         $this->$niveau=$niveau;
+    }
+
+    public function __toString():String{
+        $attrsGeneraux=parent::__toString();
+        $adherant="Id de ladhérant: $idA, $attrsGeneraux, Poids: $poids, Niveau: $niveau";
+        return $adherant;
     }
 }
 

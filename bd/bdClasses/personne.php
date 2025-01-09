@@ -1,4 +1,6 @@
 <?php
+
+namespace classes;
 abstract class Personne{
     private int $id;
     private String $prenom;
@@ -62,6 +64,11 @@ abstract class Personne{
 
     public function setAge(int $age):void{
         $this->$age=$age;
+    }
+
+    public function __toString():String{
+        $personne="Prenom: $prenom, Nom: $nom, Age: $age, Habite à: $adresse, Adresse mail: $mail";
+        return $personne;
     }
 }
 ?>
