@@ -1,5 +1,4 @@
 <?php
-// Load du header des pages (Non fait encore)
 $loginInputs=array(
     "email" =>[
         "type" => "text",

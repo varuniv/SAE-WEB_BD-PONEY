@@ -22,7 +22,8 @@
         <nav class = "navbar border justify-content-auto " style= "background-color:#AF8669">
             <div>
                 
-                <a class = "btn rounded-3 mx-5 border-1 border-dark" style= "background-color:#F5DF4D" href="login.php">Accueil</a>
+                <a class = "btn rounded-3 mx-5 border-1 border-dark" style= "background-color:#F5DF4D" href="accueil.php">Accueil</a>
+                <a class = "btn rounded-3 border-1 border-dark" style= "background-color:#F5DF4D" href="login.php">Déconnexion</a>
                
             </div>
         </nav>
