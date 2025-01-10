@@ -17,6 +17,7 @@ h1{
     display: flex;
     padding-top: 4rem;
     justify-content: center;
+    justify-content: space-evenly;
 }
 
 .titre-deux{
@@ -31,4 +32,36 @@ h2{
 
 .btn-base{
     background-color: #F5DF4D ;
+}
+
+.planning_div{
+    display: flex;
+    padding-top: 4rem;
+    justify-content: center;
+}
+
+.cours_div{
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+    box-shadow: #756e6d 0 3px 6px;
+}
+
+.cours_div:hover{
+    box-shadow: #756e6d -5px 10px 10px;
+    transform: translate(3px,1px);
+}
+
+.description{
+    margin-bottom: 0;
+}
+
+.f_ligne{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

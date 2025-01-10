@@ -19,12 +19,12 @@
 </head>
 <body style="margin: 0;height:100%">
     <header>
-        <nav class = "navbar border justify-content-auto " style= "background-color:#AF8669">
-            <div>
-                
-                <a class = "btn rounded-3 mx-5 border-1 border-dark" style= "background-color:#F5DF4D" href="accueil.php">Accueil</a>
-                <a class = "btn rounded-3 border-1 border-dark" style= "background-color:#F5DF4D" href="login.php">Déconnexion</a>
-               
+        <nav class = "navbar border d-flex justify-content-between " style= "background-color:#AF8669">
+            <div class="mx-3">
+                <a href="accueil.php"><img src="/img/loginTitle.png" alt="Accueil" style="max-height:50px"></a>
+            </div>
+            <div class="mx-3">
+                <a class = "btn rounded-3 border-1 border-dark " style= "background-color:#F5DF4D" href="login.php">Déconnexion</a> 
             </div>
         </nav>
     </header>

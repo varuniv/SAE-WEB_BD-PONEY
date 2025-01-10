@@ -1,10 +1,16 @@
 <?php
-$cssFile = "styles/planning.css";
+$cssFile = "styles/compte.css";
 include 'header.php';
 ?>
 
     <div class="titre">
-        <h1>Prochains Cours :<h1>
+        <h1>Informations du compte :<h1>
+    </div>
+    <div class="compte_div">
+        <h2>Michel</h2>
+    </div>
+    <div class="titre">
+        <h1>Mes cours :<h1>
     </div>
     <div class="planning_div">
         <div class="cours_div">
@@ -23,8 +29,9 @@ include 'header.php';
                 <p style="margin-right: 4px;">Niveau : </p>
                 <p>Junior</p>
             </div>
-            <div>
-                <a class="btn border-1 border-dark btn-base">Réserver</a>
+            <div class="f_ligne">
+                <p style="margin-right: 4px;">Nombre d'inscrits max : </p>
+                <p>10</p>
             </div>
         </div>
     </div>
