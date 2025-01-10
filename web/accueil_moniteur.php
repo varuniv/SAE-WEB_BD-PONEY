@@ -1,6 +1,6 @@
 <?php
 $cssFile = "styles/accueil.css";
-include 'header.php';
+include 'header_moniteur.php';
 ?>
     <div class="titre">
         <h1>Accueil<h1>

@@ -1,6 +1,6 @@
 <?php
 $cssFile = "styles/compte.css";
-include 'header.php';
+include 'header_moniteur.php';
 ?>
 
     <div class="titre">
