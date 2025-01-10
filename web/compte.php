@@ -7,10 +7,10 @@ include 'header.php';
         <h1>Informations du compte :<h1>
     </div>
     <div class="compte_div">
-        <h2>Michel</h2>
+        <h3>Michel</h3>
     </div>
-    <div class="titre">
-        <h1>Mes réservations :<h1>
+    <div class="titre-deux">
+        <h2>Mes réservations :<h2>
     </div>
     <div class="planning_div">
         <div class="cours_div">

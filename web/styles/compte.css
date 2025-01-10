@@ -13,6 +13,16 @@ h1{
     font-weight: bold;
 }
 
+.titre-deux{
+    padding-top: 4rem;
+    display: flex;
+    margin-left: 2rem;
+}
+
+h2{
+    color: #00A0B0;
+}
+
 .compte_div{
     display: flex;
     padding-top: 4rem;
