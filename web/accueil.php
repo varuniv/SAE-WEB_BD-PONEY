@@ -29,7 +29,7 @@ function getReservations7ProchainJours($idA, $connexion) {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-// La fonction à exécuter
+
 function cancelReservation($idC) {
     $deleteReservationRequest = "DELETE FROM RESERVER WHERE idC = :idC";
     $connexion = connexionBd();
@@ -43,7 +43,7 @@ function cancelReservation($idC) {
 
 if (isset($_POST['cancel']) && isset($_POST['idCancel'])) {
     $idCancel = $_POST['idCancel'];
-    //echo "ID to cancel: " . $idCancel;
+    
     cancelReservation($idCancel);
 }
 
