@@ -11,7 +11,7 @@ insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, Orléans',
                             (102, 'Toto', 'Titi', '1 rue de Tata, Olivet', 'toto@tutu.com', 18),
                             (103, 'Lisa', 'Atwood', 'Laferme', 'lisa.at.wood@yahoo.com', 20),
                             (104, 'Julien', 'Coucou', '1 Rue du Ranch, Chat', 'coucou@yahoo.com', 89),
-                            (105, 'Franklin', 'Clinton', '3 avenue Toto', 'Bourges', 'fc@coucou.fr', 34);
+                            (105, 'Franklin', 'Clinton', '3 avenue Toto, Bourges', 'fc@coucou.fr', 34);
 
 -- Inserts des adhérants
 insert into ADHERANT values (1, 41, 'Junior'),
@@ -46,7 +46,7 @@ insert into CRENEAU values ('2024-12-01', '19:00:00'),
                            ('2024-12-08', '14:00:00'),
                            ('2024-12-08', '16:00:00'),
                            ('2024-12-11', '14:00:00'),
-                           ('2024-12-15', '10:00:00'),
+                           ('2025-01-14', '10:00:00'),
                            ('2024-12-16', '9:00:00'),
                            ('2024-12-16', '10:00:00'),
                            ('2024-12-16', '11:00:00'),
@@ -58,7 +58,7 @@ insert into CRENEAU values ('2024-12-01', '19:00:00'),
                            ('2024-12-20','9:00:00');
 
 -- Inserts des cours 
-insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2024-12-16', '10:00:00', 'Junior'),
+insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2025-01-14', '10:00:00', 'Junior'),
                          (1002,"Entrainement d'equitation", 8, 2, 102,'2024-12-16', '11:00:00','Amateur'),
                          (1003,"Farming XP", 1, 2, 102,'2024-12-16', '18:00:00','Espoir'),
                          (1004,"Entrainement", 12, 1, 103, '2024-12-16', '9:00:00', 'Junior'),

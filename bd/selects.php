@@ -66,6 +66,7 @@ function getCoursFromId($idC):Cours{
         $nbPersonnesMax=$row["nbPersMax"];
         $dureeCours=$row["dureeC"];
         $idM=$row["idM"];
+        $moniteur=getMoniteurFromId($idM);
         $dateCours=$row["dateC"];
         $heureCours=$row["heureC"];
         $niveauCours=$row["niveauC"];

@@ -9,9 +9,9 @@ class Cours{
     private String $dateCours;
     private String $heureCours;
     private String $niveauCours;
-    private int $idM;
+    private Moniteur $moniteurCours;
 
-    public function __construct(int $idC, String $nomCours, int $nbPersonnesMax, int $dureeCours, String $dateCours, String $heureCours, String $niveauCours, int $idM){
+    public function __construct(int $idC, String $nomCours, int $nbPersonnesMax, int $dureeCours, String $dateCours, String $heureCours, String $niveauCours, Moniteur $moniteur){
         $this->$idC=$idC;
         $this->$nomCours=$nomCours;
         $this->$nbPersonnesMax=$nbPersonnesMax;
@@ -19,7 +19,7 @@ class Cours{
         $this->$dateCours=$dateCours;
         $this->$heureCours=$heureCours;
         $this->$niveauCours=$niveauCours;
-        $this->$idM=$idM;
+        $this->$moniteur=$moniteur;
     }
 
     public function getId():int{
@@ -50,7 +50,7 @@ class Cours{
         return $this->$niveauCours;
     }
 
-    public function getIdMoniteur():int{
+    public function getMoniteur():Moniteur{
         return $this->$idM;
     }
 
