@@ -1,15 +1,55 @@
 <?php
-$loginInputs=array(
-    "email" =>[
-        "type" => "text",
-        "required" => true
-    ],
-    "password"=>[
-        "type" => "text",
-        "name" => "password",
-        "required" => true
-    ]
-)
+
+session_start();
+
+require_once("../bd/connexion.php");
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+
+
+    function getPersonneByEmail($email, $connexion) {
+        $sql = "SELECT * FROM PERSONNE WHERE mail = :email";
+        $stmt = $connexion->prepare($sql);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+    $connexion = connexionBd();
+
+    if ($connexion) {
+        
+        $personne = getPersonneByEmail($email, $connexion);
+
+        if ($personne) {
+            
+            $id = $personne["id"];
+            if ($password == $id) {
+                
+                $_SESSION["user_id"] = $id;
+                $_SESSION["email"] = $email;
+                $_SESSION["prenom"] = $personne["prenom"];
+                $_SESSION["nom"] = $personne["nom"];
+
+                
+                header("Location: accueil.php");
+                exit();
+            } else {
+                echo "Mot de passe incorrect.";
+            }
+        } else {
+            echo "Aucun utilisateur trouvé avec cet email.";
+        }
+    } else {
+        echo "Erreur de connexion à la base de données.";
+    }
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -27,15 +67,14 @@ $loginInputs=array(
         <div class="aside">
             <img src="img/loginTitle.png" alt="Titre:Grand Galop">
             <form action="login.php" method="POST">
-                <?php
-                echo '<label class="loginLab">Adresse e-mail</label>';
-                echo '<input class="loginInputs" type="'.$loginInputs["email"].'">';
-                echo '<label class="loginLab">Mot de passe</label>';
-                echo '<input class="loginInputs" type="'.$loginInputs["password"].'">';
-                ?>
+                <label class="loginLab">Email</label>
+                <input class="loginInputs" type="text" name="email" required>
+
+                <label class="loginLab">Mot de passe (ID)</label>
+                <input class="loginInputs" type="password" name="password" required>
+
                 <div class="submit-btn">
                     <input id="connect" type="submit" value="Se connecter">
-                    <input type="button" value="S'inscrire">
                 </div>
             </form>
         </div>
