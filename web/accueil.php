@@ -2,7 +2,8 @@
 $cssFile = "styles/accueil.css";
 include 'header.php';
 
-$_SESSION["user_id"] = $idA;
+session_start();
+$idA = $_SESSION["user_id"];
 
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
@@ -12,12 +13,12 @@ function getReservations7ProchainJours($idA, $connexion) {
     $maxDate = date('Y-m-d', strtotime('+7 days'));
 
     $sql = "
-        SELECT c.nom AS nomCours, c.dateCours, c.heure, c.duree, c.niveau, p.nom AS nomPoney
+        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney
         FROM RESERVER r
         INNER JOIN COURS c ON r.idC = c.idC
         INNER JOIN PONEY p ON r.idP = p.idP
         WHERE r.idA = :idA
-        AND c.dateCours BETWEEN :todayDate AND :maxDate
+        AND c.dateC BETWEEN :todayDate AND :maxDate
     ";
 
     $stmt = $connexion->prepare($sql);
@@ -28,7 +29,6 @@ function getReservations7ProchainJours($idA, $connexion) {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
 // Récupérer les réservations
 $coursProchains = $idA ? getReservations7ProchainJours($idA, $connexion) : [];
 ?>
@@ -53,15 +53,15 @@ $coursProchains = $idA ? getReservations7ProchainJours($idA, $connexion) : [];
                 </div>
                 <div>
                     <p class="description"><?php echo htmlspecialchars($cours['dateCours']); ?></p>
-                    <p><?php echo htmlspecialchars($cours['heure']); ?></p>
+                    <p><?php echo htmlspecialchars($cours['heureCours']); ?></p>
                 </div>
                 <div class="f_ligne">
                     <p style="margin-right: 4px;">Durée : </p>
-                    <p><?php echo htmlspecialchars($cours['duree']); ?></p>
+                    <p><?php echo htmlspecialchars($cours['dureeCours']); ?></p>
                 </div>
                 <div class="f_ligne">
                     <p style="margin-right: 4px;">Niveau : </p>
-                    <p><?php echo htmlspecialchars($cours['niveau']); ?></p>
+                    <p><?php echo htmlspecialchars($cours['niveauCours']); ?></p>
                 </div>
                 <div class="f_ligne">
                     <div style="margin-right:10px;">
