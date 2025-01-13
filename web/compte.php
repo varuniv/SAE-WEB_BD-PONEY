@@ -31,7 +31,7 @@ $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetch();
 
-$coursProchains = getReservations($idA, $connexion)
+$coursProchains = getReservations($idA, $connexion);
 ?>
 
     <div class="titre">
