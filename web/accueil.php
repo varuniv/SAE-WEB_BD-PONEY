@@ -29,8 +29,9 @@ function getReservations7ProchainJours($idA, $connexion) {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-// Récupérer les réservations
-$coursProchains = $idA ? getReservations7ProchainJours($idA, $connexion) : [];
+
+
+$coursProchains = getReservations7ProchainJours($idA, $connexion)
 ?>
 <div class="titre">
     <h1>Accueil</h1>

@@ -75,37 +75,42 @@ function getCoursFromId($idC):Cours{
     return $cours;
 }
 
-function getTodayDate():String{
-    $todayDateRequest="select GETDATE() today";
-    foreach($connexion->query($todayDate) as $row){
-        $todayDate=$row["today"];
-        return $todayDate;
-    }
+function getReservations7ProchainJours($idA, $connexion) {
+    $todayDate = date('Y-m-d');
+    $maxDate = date('Y-m-d', strtotime('+7 days'));
+
+    $sql = "
+        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney
+        FROM RESERVER r
+        INNER JOIN COURS c ON r.idC = c.idC
+        INNER JOIN PONEY p ON r.idP = p.idP
+        WHERE r.idA = :idA
+        AND c.dateC BETWEEN :todayDate AND :maxDate
+    ";
+
+    $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
+    $stmt->bindParam(':todayDate', $todayDate);
+    $stmt->bindParam(':maxDate', $maxDate);
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getMaxDate($todayDate):String{
-    $maxDateRequest="select DATE_SUB($todayDate, INTERVAL -7 DAY) maxDate";
-    foreach($connexion->query($maxDateRequest) as $row){
-        $maxDate=$row["maxDate"];
-        return $maxDate;
-    }
-}
+function getReservations($idA, $connexion) {
 
-function getReservations7ProchainJours(int $idA):Reservations{
-    $todayDate=getTodayDate();
-    $maxDate=getMaxDate($todayDate);
-    $reservations7ProchainsJours=new Reservations($idA);
-    $idCoursReserves="select idC,idP from RESERVER where idA=$idA";
-    foreach($connexion->query($idCoursReserves) as $row){
-        $idC=$row["idC"];
-        $idP=$row["idP"];
-        $cours=getCoursFromId($idC);
-        if($cours->getThisIfIn7Days($todayDate, $maxDate)!=null){
-            $poney=getPoneyFromId($idP);
-            $validReservation=new Reservation($cours, $poney);
-            $reservations7ProchainsJours->addReservation($validReservation);
-        }
-    }
-    return $reservations7ProchainsJours;
+    $sql = "
+        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney
+        FROM RESERVER r
+        INNER JOIN COURS c ON r.idC = c.idC
+        INNER JOIN PONEY p ON r.idP = p.idP
+        WHERE r.idA = :idA
+    ";
+
+    $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);;
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
