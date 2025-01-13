@@ -13,7 +13,7 @@ function getReservations7ProchainJours($idA, $connexion) {
     $maxDate = date('Y-m-d', strtotime('+7 days'));
 
     $sql = "
-        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney
+        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney, r.idC AS idC
         FROM RESERVER r
         INNER JOIN COURS c ON r.idC = c.idC
         INNER JOIN PONEY p ON r.idP = p.idP
@@ -29,6 +29,27 @@ function getReservations7ProchainJours($idA, $connexion) {
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+// La fonction à exécuter
+function cancelReservation($idC) {
+    $deleteReservationRequest = "DELETE FROM RESERVER WHERE idC = :idC";
+    $connexion = connexionBd();
+    $stmt = $connexion->prepare($deleteReservationRequest);
+    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    
+
+}
+
+if (isset($_POST['cancel']) && isset($_POST['idCancel'])) {
+    $idCancel = $_POST['idCancel'];
+    echo "ID to cancel: " . $idCancel;
+    cancelReservation($idCancel);
+} else {
+    echo "Form not submitted or idCancel not set!";
+}
+
+
 
 
 $coursProchains = getReservations7ProchainJours($idA, $connexion)
@@ -73,7 +94,10 @@ $coursProchains = getReservations7ProchainJours($idA, $connexion)
                     </div>
                 </div>
                 <div>
-                    <a class="btn border-1 border-dark btn-base" href="annuler.php?id=<?php echo urlencode($cours['nomCours']); ?>">Annuler la réservation</a>
+                    <form method="POST">
+                        <input type="hidden" name="idCancel" value="<?php echo htmlspecialchars($cours['idC']); ?>">
+                        <button type="submit" name="cancel" class="btn border-1 border-dark btn-base">Annuler la réservation</button>
+                    </form>
                 </div>
             </div>
         <?php endforeach; ?>
