@@ -108,6 +108,4 @@ function getReservations7ProchainJours(int $idA):Reservations{
     }
     return $reservations7ProchainsJours;
 }
-
-// TODO: infos adherent, cours, moniteurs, poneys, reservations adherents (planning)
 ?>
