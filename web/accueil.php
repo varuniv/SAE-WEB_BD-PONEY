@@ -92,7 +92,7 @@ $coursProchains = getReservations7ProchainJours($idA, $connexion)
                     </div>
                 </div>
                 <div>
-                    <form method="POST">
+                    <form method="POST" onsubmit="return confirmCancel()">
                         <input type="hidden" name="idCancel" value="<?php echo htmlspecialchars($cours['idC']); ?>">
                         <button type="submit" name="cancel" class="btn border-1 border-dark btn-base">Annuler la réservation</button>
                     </form>
@@ -101,5 +101,13 @@ $coursProchains = getReservations7ProchainJours($idA, $connexion)
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
+
+
+<script type="text/javascript">
+    function confirmCancel() {
+        return confirm("Êtes-vous sûr de vouloir faire cette action ?");
+    }
+</script>
+
 </body>
 </html>
