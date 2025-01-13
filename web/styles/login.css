@@ -1,0 +1,44 @@
+.main{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.login_div{
+    display: flex;
+    background-color: #F0EEE9; 
+    align-items: center;
+    justify-content: center;
+    height:100%;
+}
+
+.aside{
+    background-color: #F0EEE9;
+    padding: 2rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.loginLab{
+    color:#CF5C78;
+    margin:1em;
+}
+
+.submit-btn{
+    display: flex;
+    flex-direction: column;
+}
+.submit-btn input{
+    margin:1em;
+}
+
+.loginInputs{
+    border-radius: 5px;
+}
+
+#connect{
+    background-color: #F5DF4D;
+    border-color: black;
+}
