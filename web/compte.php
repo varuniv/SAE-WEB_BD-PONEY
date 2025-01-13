@@ -19,12 +19,17 @@ function getReservations($idA, $connexion) {
     ";
 
     $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);;
+    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
     $stmt->execute();
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+$stmt = $connexion->prepare('SELECT * FROM PERSONNE WHERE id = :idA');
+$stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
+$stmt->execute();
+$result = $stmt->fetch();
 
 $coursProchains = getReservations($idA, $connexion)
 ?>
@@ -33,7 +38,9 @@ $coursProchains = getReservations($idA, $connexion)
         <h1>Informations du compte :<h1>
     </div>
     <div class="compte_div">
-        <h3>Michel</h3>
+        <h3><?php echo htmlspecialchars($result['prenom']); echo " ";  echo htmlspecialchars($result['nom']);?></h3>
+        <p>Adresse : <?php echo " ";  echo htmlspecialchars($result['adresse']);?></p>
+        <p>Mail : <?php echo " ";  echo htmlspecialchars($result['mail']);?></p>
     </div>
     <div class="titre-deux">
         <h2>Mes réservations :<h2>
