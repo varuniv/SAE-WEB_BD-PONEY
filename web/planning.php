@@ -9,7 +9,7 @@ $connexion = connexionBd();
 
 function getReservations($connexion) {
 
-    $sql = "SELECT nomC AS nomCours, dateC AS dateCours, heureC AS heureCours, dureeC AS dureeCours, niveauC AS niveauCours FROM COURS";
+    $sql = "SELECT idC, nomC AS nomCours, dateC AS dateCours, heureC AS heureCours, dureeC AS dureeCours, niveauC AS niveauCours FROM COURS";
     $stmt = $connexion->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +43,7 @@ $lesCours = getReservations($connexion);
                         <p><?php echo htmlspecialchars($cours['niveauCours']); ?></p>
                     </div>
                     <div>
-                        <a class="btn border-1 border-dark btn-base" href="annuler.php?id=<?php echo urlencode($cours['nomCours']); ?>">Réserver</a>
+                        <a class="btn border-1 border-dark btn-base" href="reserver.php?idC=<?php echo urlencode($cours['idC']); ?>">Réserver</a>
                     </div>
                 </div>
             <?php endforeach; ?>

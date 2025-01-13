@@ -4,7 +4,7 @@ session_start();
 
 require_once("../bd/connexion.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST['connect'])) {
     
     $email = $_POST["email"];
     $password = $_POST["password"];
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input class="loginInputs" type="password" name="password" required>
 
                 <div class="submit-btn">
-                    <input id="connect" type="submit" value="Se connecter">
+                    <input id="connect" name="connect" type="submit" value="Se connecter">
                 </div>
             </form>
         </div>
