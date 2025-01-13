@@ -42,7 +42,7 @@ if (isset($_POST['idPoney'])) {
         <h2 class="pt-4">Choisissez un poney :</h2>
     </div>
     <div class="poneys">
-        <form action="/soumettre" method="POST">
+        <form method="POST">
             <?php if (empty($lesPoneys)) : ?>
                 <p>Aucun poney disponible</p>
             <?php else : ?>
