@@ -43,10 +43,8 @@ function cancelReservation($idC) {
 
 if (isset($_POST['cancel']) && isset($_POST['idCancel'])) {
     $idCancel = $_POST['idCancel'];
-    echo "ID to cancel: " . $idCancel;
+    //echo "ID to cancel: " . $idCancel;
     cancelReservation($idCancel);
-} else {
-    echo "Form not submitted or idCancel not set!";
 }
 
 
