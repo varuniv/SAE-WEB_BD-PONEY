@@ -68,7 +68,7 @@ $coursProchains = getReservations($idA, $connexion);
         <?php else : ?>
             <?php foreach ($coursProchains as $cours) : ?>
                 <div class="cours_div">
-                    <div>
+                    <div class="cours_nom">
                         <h3><?php echo htmlspecialchars($cours['nomCours']); ?></h3>
                     </div>
                     <div>

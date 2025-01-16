@@ -45,6 +45,8 @@ h2{
     border-radius: 10px;
     transition: all 0.5s ease;
     box-shadow: #756e6d 0 3px 6px;
+    width: 20rem;
+    margin: 2rem;
 }
 
 .cours_div:hover{
@@ -64,4 +66,9 @@ h2{
 
 .btn-base{
     background-color: #F5DF4D ;
+}
+
+.cours_nom{
+    justify-content: center;
+    display: flex;
 }
