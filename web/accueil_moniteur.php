@@ -1,5 +1,6 @@
 <?php
 $cssFile = "styles/accueil.css";
+
 include 'header.php';
 
 session_start();

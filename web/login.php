@@ -43,6 +43,7 @@ if (isset($_POST['connect'])) {
                 exit();
                 }
                 
+
             } else {
                 echo "Mot de passe incorrect.";
             }

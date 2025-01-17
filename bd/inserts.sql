@@ -32,7 +32,7 @@ insert into MONITEUR values (101, 15000, 1989),
 -- Inserts des poneys
 insert into PONEY values (151,'Moew',50),
                         (152,'Abyss',45),
-                        (153,'Caramel SalÃ©',30),
+                        (153,'Caramel Salé',30),
                         (154,'Caramel',50),
                         (155,'Shtorm',40),
                         (156, 'Shadow', 55),
