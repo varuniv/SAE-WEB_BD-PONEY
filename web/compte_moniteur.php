@@ -1,7 +1,7 @@
 <?php
 $cssFile = "styles/compte.css";
 
-include 'header.php';
+include 'header_moniteur.php';
 
 session_start();
 $idM = $_SESSION["user_id"];

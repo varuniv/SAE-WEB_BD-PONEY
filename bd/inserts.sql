@@ -1,11 +1,11 @@
 -- Inserts des personnes
-insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, OrlÃ©ans', 'dupont.michel@gmail.com', 12),
+insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, Orléans', 'dupont.michel@gmail.com', 12),
                             (2,'Kirby', 'NomDesMondes', '3 allée de DreamLand, Star','poyo@gmail.com',200),
                             (3, 'Jean', 'Paul', '2 avenue Toto, Bourges', 'jpaul@orange.fr', 42),
-                            (4, 'Alex', 'Roger', '1 rue De Gaulle, OrlÃ©ans', 'alex@mail.com', 23),
+                            (4, 'Alex', 'Roger', '1 rue De Gaulle, Orléans', 'alex@mail.com', 23),
                             (5, 'Sophie', 'Lefevre', '12 rue du Parc, Nantes', 'sophie.lefevre@gmail.com', 30),
                             (6, 'Luca', 'Moretti', '3 avenue de la Mer, Nice', 'luca.moretti@hotmail.com', 27),
-                            (7, 'Emma', 'Dubois', '45 boulevard de la LibertÃ©, Lyon', 'emma.dubois@gmail.com', 35),
+                            (7, 'Emma', 'Dubois', '45 boulevard de la Liberté, Lyon', 'emma.dubois@gmail.com', 35),
                             (8, 'Tom', 'Hanks', '56 rue du Cinema, Paris', 'tom.hanks@gmail.com', 50),
                             (101, 'Jean-Pierre', 'Polnaref', '12 rue de la Tortue, Paris', 'jeanpierre@yahoo.com', 35),
                             (102, 'Toto', 'Titi', '1 rue de Tata, Olivet', 'toto@tutu.com', 18),
@@ -13,7 +13,7 @@ insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, OrlÃ©ans
                             (104, 'Julien', 'Coucou', '1 Rue du Ranch, Chat', 'coucou@yahoo.com', 89),
                             (105, 'Franklin', 'Clinton', '3 avenue Toto, Bourges', 'fc@coucou.fr', 34);
 
--- Inserts des adhÃ©rants
+-- Inserts des adhérants
 insert into ADHERANT values (1, 20, 'Junior'),
                             (2, 35, 'Junior'),
                             (3, 15, 'Amateur'),
@@ -65,7 +65,7 @@ insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2025-01-2
                          (1005,"Course", 10, 1, 104, '2024-12-16', '10:00:00', 'Amateur'),
                          (1006,"Level up", 5, 1, 103, '2024-12-16', '12:00:00', 'Senior');
 
--- Inserts des rÃ©servations aux cours et des poneys
+-- Inserts des réservations aux cours et des poneys
 insert into RESERVER values (1, 151, 1001),
                             (2, 152, 1001),
                             (1, 153, 1002),
