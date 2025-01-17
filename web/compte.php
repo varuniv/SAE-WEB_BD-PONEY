@@ -26,9 +26,8 @@ function getReservations($idA, $connexion) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function cancelReservation($idC) {
+function cancelReservation($idC, $connexion) {
     $deleteReservationRequest = "DELETE FROM RESERVER WHERE idC = :idC";
-    $connexion = connexionBd();
     $stmt = $connexion->prepare($deleteReservationRequest);
     $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
     $stmt->execute();
@@ -40,7 +39,7 @@ function cancelReservation($idC) {
 if (isset($_POST['cancel']) && isset($_POST['idCancel'])) {
     $idCancel = $_POST['idCancel'];
     
-    cancelReservation($idCancel);
+    cancelReservation($idCancel, $connexion);
 }
 
 $stmt = $connexion->prepare('SELECT * FROM PERSONNE WHERE id = :idA');
