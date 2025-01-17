@@ -24,7 +24,7 @@
                 <a href="accueil.php"><img src="/img/loginTitle.png" alt="Accueil" style="max-height:50px"></a>
             </div>
             <div class="mx-3">
-                <a class = "btn rounded-3 border-1 border-dark " style= "background-color:#F5DF4D" href="login.php">Déconnexion</a> 
+                <a class = "btn rounded-3 border-1 border-dark " style= "background-color:#F5DF4D" href="login.php">Déconnexion</a>
             </div>
         </nav>
     </header>

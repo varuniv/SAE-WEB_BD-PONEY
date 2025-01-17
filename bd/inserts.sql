@@ -1,19 +1,20 @@
 -- Inserts des personnes
-insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, Orléans', 'dupont.michel@gmail.com', 12),
-                            (2,'Kirby', 'NomDesMondes', 'DreamLand,POP','poyo@gmail.com',200),
+insert into PERSONNE values (1, 'Michel', 'Dupont', '2 rue De Gaulle, OrlÃ©ans', 'dupont.michel@gmail.com', 12),
+                            (2,'Kirby', 'NomDesMondes', '3 allée de DreamLand, Star','poyo@gmail.com',200),
                             (3, 'Jean', 'Paul', '2 avenue Toto, Bourges', 'jpaul@orange.fr', 42),
-                            (4, 'Alex', 'Roger', '1 rue De Gaulle, Orléans', 'alex@mail.com', 23),
+                            (4, 'Alex', 'Roger', '1 rue De Gaulle, OrlÃ©ans', 'alex@mail.com', 23),
                             (5, 'Sophie', 'Lefevre', '12 rue du Parc, Nantes', 'sophie.lefevre@gmail.com', 30),
                             (6, 'Luca', 'Moretti', '3 avenue de la Mer, Nice', 'luca.moretti@hotmail.com', 27),
-                            (7, 'Emma', 'Dubois', '45 boulevard de la Liberté, Lyon', 'emma.dubois@gmail.com', 35),
+                            (7, 'Emma', 'Dubois', '45 boulevard de la LibertÃ©, Lyon', 'emma.dubois@gmail.com', 35),
                             (8, 'Tom', 'Hanks', '56 rue du Cinema, Paris', 'tom.hanks@gmail.com', 50),
-                            (101, 'Jean-Pierre', 'Polnaref', 'Tortue', 'jeanpierre@yahoo.com', 35),
+                            (101, 'Jean-Pierre', 'Polnaref', '12 rue de la Tortue, Paris', 'jeanpierre@yahoo.com', 35),
                             (102, 'Toto', 'Titi', '1 rue de Tata, Olivet', 'toto@tutu.com', 18),
                             (103, 'Lisa', 'Atwood', 'Laferme', 'lisa.at.wood@yahoo.com', 20),
-                            (104, 'Julien', 'Coucou', '1 Rue du Ranch, Chat', 'coucou@yahoo.com', 89);
+                            (104, 'Julien', 'Coucou', '1 Rue du Ranch, Chat', 'coucou@yahoo.com', 89),
+                            (105, 'Franklin', 'Clinton', '3 avenue Toto, Bourges', 'fc@coucou.fr', 34);
 
--- Inserts des adhérants
-insert into ADHERANT values (1, 41, 'Junior'),
+-- Inserts des adhÃ©rants
+insert into ADHERANT values (1, 20, 'Junior'),
                             (2, 35, 'Junior'),
                             (3, 15, 'Amateur'),
                             (4, 10, 'Espoir'),
@@ -45,30 +46,30 @@ insert into CRENEAU values ('2024-12-01', '19:00:00'),
                            ('2024-12-08', '14:00:00'),
                            ('2024-12-08', '16:00:00'),
                            ('2024-12-11', '14:00:00'),
-                           ('2024-12-15', '10:00:00'),
+                           ('2025-01-20', '10:00:00'),
                            ('2024-12-16', '9:00:00'),
                            ('2024-12-16', '10:00:00'),
                            ('2024-12-16', '11:00:00'),
                            ('2024-12-16', '12:00:00'),
-                           ('2024-12-16', '18:00:00'),
+                           ('2025-02-16', '18:00:00'),
                            ('2024-12-17', '8:00:00'),
                            ('2024-12-17', '13:00:00'),
                            ('2024-12-19','18:00:00'),
                            ('2024-12-20','9:00:00');
 
 -- Inserts des cours 
-insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2024-12-16', '10:00:00', 'Junior'),
-                         (1002,"Entrainement d'equitation", 8, 2, 102,'2024-12-16', '11:00:00','Amateur'),
-                         (1003,"Farming XP", 1, 2, 102,'2024-12-16', '18:00:00','Espoir'),
+insert into COURS values (1001,"Introdution d'equitation", 10, 2, 101,'2025-01-20', '10:00:00', 'Junior'),
+                         (1002,"Entrainement d'equitation", 8, 2, 102,'2024-12-16', '11:00:00','Junior'),
+                         (1003,"Farming XP", 1, 2, 102,'2025-02-16', '18:00:00','Junior'),
                          (1004,"Entrainement", 12, 1, 103, '2024-12-16', '9:00:00', 'Junior'),
                          (1005,"Course", 10, 1, 104, '2024-12-16', '10:00:00', 'Amateur'),
                          (1006,"Level up", 5, 1, 103, '2024-12-16', '12:00:00', 'Senior');
 
--- Inserts des réservations aux cours et des poneys
+-- Inserts des rÃ©servations aux cours et des poneys
 insert into RESERVER values (1, 151, 1001),
                             (2, 152, 1001),
-                            (3, 153, 1002),
-                            (4, 155, 1003),
+                            (1, 153, 1002),
+                            (1, 155, 1003),
                             (5, 156, 1004),
                             (6, 159, 1004),
                             (7, 158, 1005),
