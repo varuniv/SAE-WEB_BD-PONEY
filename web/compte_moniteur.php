@@ -9,18 +9,8 @@ $idM = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getCours($idM, $connexion) {
-    $sql = "SELECT C.idC, C.nomC AS nomCours, C.dateC AS dateCours, C.heureC AS heureCours, C.dureeC AS dureeCours, C.niveauC AS niveauCours
-            FROM COURS C
-            JOIN MONITEUR M ON C.idM = M.idM
-            WHERE M.idM = :idM;";
+require_once("../bd/selects.php");
 
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idM', $idM, PDO::PARAM_INT);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 $stmt = $connexion->prepare('SELECT * FROM PERSONNE WHERE id = :idM');
 $stmt->bindParam(':idM', $idM, PDO::PARAM_INT);

@@ -8,28 +8,13 @@ $idA = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
+require_once("../bd/selects.php");
+
 if (isset($_GET['idC'])) {
     $idC = $_GET['idC'];
 }
 
-function getPoneys($connexion) {
-    $sql = "SELECT idP, nomP AS nomPoney FROM PONEY";
-    $stmt = $connexion->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
 $lesPoneys = getPoneys($connexion);
-
-// Fonction pour insérer la réservation
-function addReservation($idA, $idC, $idP, $connexion): void {
-    $insertReservation = "INSERT INTO RESERVER (idA, idP, idC) VALUES (:idA, :idP, :idC)";
-    $stmt = $connexion->prepare($insertReservation);
-    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->bindParam(':idP', $idP, PDO::PARAM_INT);
-    $stmt->execute();
-}
 
 if (isset($_POST['idPoney'])) {
     $idPoney = $_POST['idPoney']; // ID du poney sélectionné dans le formulaire

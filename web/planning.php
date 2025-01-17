@@ -8,25 +8,9 @@ $idA = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getCoursNonInscrit($connexion, $idA) {
-    $sqlNiveau = "SELECT niveauA FROM ADHERANT WHERE idA = :idA";
-    $stmtNiveau = $connexion->prepare($sqlNiveau);
-    $stmtNiveau->bindParam(':idA', $idA, PDO::PARAM_INT);
-    $stmtNiveau->execute();
-    $niveauA = $stmtNiveau->fetchColumn();
+require_once("../bd/selects.php");
 
-    $sql = "
-        SELECT C.idC, C.nomC AS nomCours, C.dateC AS dateCours, C.heureC AS heureCours, C.dureeC AS dureeCours, C.niveauC AS niveauCours FROM COURS C
-        WHERE C.niveauC = :niveauA
-        AND C.idC NOT IN (SELECT R.idC FROM RESERVER R WHERE R.idA = :idA)
-    ";
-    
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':niveauA', $niveauA, PDO::PARAM_STR);
-    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+
 
 $lesCours = getCoursNonInscrit($connexion, $idA);
 ?>

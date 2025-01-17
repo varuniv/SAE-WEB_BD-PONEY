@@ -8,43 +8,14 @@ $idA = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getReservations7ProchainJours($idA, $connexion) {
-    $todayDate = date('Y-m-d');
-    $maxDate = date('Y-m-d', strtotime('+7 days'));
+require_once("../bd/selects.php");
 
-    $sql = "
-        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney, r.idC AS idC
-        FROM RESERVER r
-        INNER JOIN COURS c ON r.idC = c.idC
-        INNER JOIN PONEY p ON r.idP = p.idP
-        WHERE r.idA = :idA
-        AND c.dateC BETWEEN :todayDate AND :maxDate
-    ";
 
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
-    $stmt->bindParam(':todayDate', $todayDate);
-    $stmt->bindParam(':maxDate', $maxDate);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function cancelReservation($idC) {
-    $deleteReservationRequest = "DELETE FROM RESERVER WHERE idC = :idC";
-    $connexion = connexionBd();
-    $stmt = $connexion->prepare($deleteReservationRequest);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->execute();
-    
-    
-
-}
 
 if (isset($_POST['cancel']) && isset($_POST['idCancel'])) {
     $idCancel = $_POST['idCancel'];
     
-    cancelReservation($idCancel);
+    cancelReservation($idCancel,$connexion);
 }
 
 

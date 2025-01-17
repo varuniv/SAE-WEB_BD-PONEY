@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+require_once("../bd/selects.php");
 
 require_once("../bd/connexion.php");
 
@@ -8,16 +9,6 @@ if (isset($_POST['connect'])) {
     
     $email = $_POST["email"];
     $password = $_POST["password"];
-
-
-    function getPersonneByEmail($email, $connexion) {
-        $sql = "SELECT * FROM PERSONNE WHERE mail = :email";
-        $stmt = $connexion->prepare($sql);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
 
     $connexion = connexionBd();
 

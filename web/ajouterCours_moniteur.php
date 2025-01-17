@@ -8,43 +8,9 @@ $idM = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getIdCoursMax($connexion){
-    $sql = "SELECT MAX(idC) FROM COURS";
-    $stmt = $connexion->prepare($sql);
-    $stmt->execute();
-    $idMax = $stmt->fetchColumn();
-    return (int) $idMax;
-}
+require_once("../bd/selects.php");
 
-function getNiveaux($connexion) {
-    $sql = "SELECT DISTINCT niveauA FROM ADHERANT";
-    $stmt = $connexion->prepare($sql);
-    $stmt->execute();
-    $lesNiveaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $lesNiveaux;
-}
 
-function addCreneau($connexion, $dateCreneau, $heureCreneau){
-    $insertSql = "INSERT INTO CRENEAU (dateC, heureC) VALUES (:dateC, :heureC)";
-    $insertStmt = $connexion->prepare($insertSql);
-    $insertStmt->bindParam(':dateC', $dateCreneau);
-    $insertStmt->bindParam(':heureC', $heureCreneau);
-    $insertStmt->execute();
-}
-
-function addCours($connexion, $idM, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours) {
-    $idC= getIdCoursMax($connexion) + 1;
-    $sql = "INSERT INTO COURS values (:idC, :nomCours, 10, :dureeCours, :idM, :dateCreneau, :heureCreneau, :niveauCours)";
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idM', $idM);
-    $stmt->bindParam(':nomCours', $nomCours);
-    $stmt->bindParam(':dureeCours', $dureeCours, PDO::PARAM_INT);
-    $stmt->bindParam(':dateCreneau', $dateCreneau);
-    $stmt->bindParam(':heureCreneau', $heureCreneau);
-    $stmt->bindParam(':niveauCours', $niveauCours);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->execute();
-}
 
 $lesNiveaux = getNiveaux($connexion);
 

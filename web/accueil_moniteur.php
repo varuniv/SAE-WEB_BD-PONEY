@@ -9,24 +9,9 @@ $idM = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getCours7ProchainJours($idM, $connexion) {
-    $todayDate = date('Y-m-d');
-    $maxDate = date('Y-m-d', strtotime('+7 days'));
+require_once("../bd/selects.php");
 
-    $sql = "SELECT C.idC, C.nomC AS nomCours, C.dateC AS dateCours, C.heureC AS heureCours, C.dureeC AS dureeCours, C.niveauC AS niveauCours
-            FROM COURS C
-            JOIN MONITEUR M ON C.idM = M.idM
-            WHERE M.idM = :idM
-            AND C.dateC BETWEEN :todayDate AND :maxDate;";
 
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idM', $idM, PDO::PARAM_INT);
-    $stmt->bindParam(':todayDate', $todayDate);
-    $stmt->bindParam(':maxDate', $maxDate);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 $coursProchains = getCours7ProchainJours($idM, $connexion)
 ?>

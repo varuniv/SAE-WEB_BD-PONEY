@@ -8,33 +8,8 @@ $idA = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getReservations($idA, $connexion) {
+require_once("../bd/selects.php");
 
-    $sql = "
-        SELECT c.nomC AS nomCours, c.dateC AS dateCours, c.heureC AS heureCours, c.dureeC AS dureeCours, c.niveauC AS niveauCours, p.nomP AS nomPoney,r.idC AS idC
-        FROM RESERVER r
-        INNER JOIN COURS c ON r.idC = c.idC
-        INNER JOIN PONEY p ON r.idP = p.idP
-        WHERE r.idA = :idA
-    ";
-    
-
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idA', $idA, PDO::PARAM_INT);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function cancelReservation($idC, $connexion) {
-    $deleteReservationRequest = "DELETE FROM RESERVER WHERE idC = :idC";
-    $stmt = $connexion->prepare($deleteReservationRequest);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->execute();
-    
-    
-
-}
 
 if (isset($_POST['cancel']) && isset($_POST['idCancel'])) {
     $idCancel = $_POST['idCancel'];

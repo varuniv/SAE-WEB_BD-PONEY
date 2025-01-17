@@ -8,55 +8,18 @@ $idM = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
+require_once("../bd/selects.php");
+
+
 if (isset($_GET['idC'])) {
     $idC = $_GET['idC'];
 }
 
-function getLeCours($connexion, $idC) {
 
-    $sql = "SELECT idC, nomC AS nomCours, dateC AS dateCours, heureC AS heureCours, dureeC AS dureeCours, niveauC AS niveauCours FROM COURS WHERE idC= :idC";
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
 $leCours= getLeCours($connexion, $idC);
 
-function getNiveaux($connexion) {
-    $sql = "SELECT DISTINCT niveauA FROM ADHERANT";
-    $stmt = $connexion->prepare($sql);
-    $stmt->execute();
-    $lesNiveaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $lesNiveaux;
-}
 
-function addCreneau($connexion, $dateCreneau, $heureCreneau){
-    $insertSql = "INSERT INTO CRENEAU (dateC, heureC) VALUES (:dateC, :heureC)";
-    $insertStmt = $connexion->prepare($insertSql);
-    $insertStmt->bindParam(':dateC', $dateCreneau);
-    $insertStmt->bindParam(':heureC', $heureCreneau);
-    $insertStmt->execute();
-}
-
-function updateCours($connexion, $idC, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours) {
-    $sql = "UPDATE COURS SET nomC = :nomCours, dureeC = :dureeCours, dateC = :dateCreneau, heureC = :heureCreneau, niveauC = :niveauCours WHERE idC = :idC";
-    $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':nomCours', $nomCours);
-    $stmt->bindParam(':dureeCours', $dureeCours, PDO::PARAM_INT);
-    $stmt->bindParam(':dateCreneau', $dateCreneau);
-    $stmt->bindParam(':heureCreneau', $heureCreneau);
-    $stmt->bindParam(':niveauCours', $niveauCours);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->execute();
-}
-
-function cancelCours($idC, $connexion) {
-    $deleteCours= "DELETE FROM COURS WHERE idC = :idC";
-    $stmt = $connexion->prepare($deleteCours);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
-    $stmt->execute();
-}
 
 if (isset($_GET['idC'])) {
     $idC = $_GET['idC'];
