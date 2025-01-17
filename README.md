@@ -22,6 +22,6 @@ Sargis VARDANYAN
 ## Fonctionnalités ajoutées depuis la soutenance
 > Avant la soutenance, notre site était uniquement différentes pages connectées entre elles par des boutons. Après la soutenance, nous avons donc implémentés les différentes fonctionnalités présentés dans la partie des fonctionnalités
 ## Lancement du site
-> Pour lancer le site, il faut exécuter la commande **"php -S localhost:8000"** dans le dossier **web**
+> Pour lancer le site, il faut exécuter la commande **"bash start.sh"** 
 ## Git
 > Lien Git: https://github.com/varuniv/SAE-WEB_BD-PONEY.git
