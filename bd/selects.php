@@ -125,21 +125,7 @@ function getIdCoursMax($connexion){
     return (int) $idMax;
 }
 
-function getNiveaux($connexion) {
-    $sql = "SELECT DISTINCT niveauA FROM ADHERANT";
-    $stmt = $connexion->prepare($sql);
-    $stmt->execute();
-    $lesNiveaux = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $lesNiveaux;
-}
 
-function addCreneau($connexion, $dateCreneau, $heureCreneau){
-    $insertSql = "INSERT INTO CRENEAU (dateC, heureC) VALUES (:dateC, :heureC)";
-    $insertStmt = $connexion->prepare($insertSql);
-    $insertStmt->bindParam(':dateC', $dateCreneau);
-    $insertStmt->bindParam(':heureC', $heureCreneau);
-    $insertStmt->execute();
-}
 
 function addCours($connexion, $idM, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours) {
     $idC= getIdCoursMax($connexion) + 1;
