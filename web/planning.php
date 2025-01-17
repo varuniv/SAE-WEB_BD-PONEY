@@ -7,7 +7,7 @@ session_start();
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-function getReservations($connexion) {
+function getCours($connexion) {
 
     $sql = "SELECT idC, nomC AS nomCours, dateC AS dateCours, heureC AS heureCours, dureeC AS dureeCours, niveauC AS niveauCours FROM COURS";
     $stmt = $connexion->prepare($sql);
@@ -15,7 +15,7 @@ function getReservations($connexion) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$lesCours = getReservations($connexion);
+$lesCours = getCours($connexion);
 ?>
 
     <div class="titre">

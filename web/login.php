@@ -34,10 +34,15 @@ if (isset($_POST['connect'])) {
                 $_SESSION["email"] = $email;
                 $_SESSION["prenom"] = $personne["prenom"];
                 $_SESSION["nom"] = $personne["nom"];
-
                 
-                header("Location: accueil.php");
+                if ($id > 100){
+                    header("Location: accueil_moniteur.php");
+                    exit();
+                } else {
+                    header("Location: accueil.php");
                 exit();
+                }
+                
             } else {
                 echo "Mot de passe incorrect.";
             }

@@ -3,13 +3,13 @@ $cssFile = "styles/reserver.css";
 include 'header.php';
 
 session_start();
-$idA = $_SESSION["user_id"]; // L'id de l'adhérent vient de la session.
+$idA = $_SESSION["user_id"];
 
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
 if (isset($_GET['idC'])) {
-    $idC = $_GET['idC']; // ID du cours récupéré depuis l'URL
+    $idC = $_GET['idC'];
 }
 
 function getPoneys($connexion) {
@@ -34,7 +34,7 @@ function addReservation($idA, $idC, $idP, $connexion): void {
 if (isset($_POST['idPoney'])) {
     $idPoney = $_POST['idPoney']; // ID du poney sélectionné dans le formulaire
     addReservation($idA, $idC, $idPoney, $connexion); // Insertion dans la base
-    echo "<p>Réservation effectuée avec succès !</p>";
+    header("Location: accueil.php");
 }
 
 ?>
