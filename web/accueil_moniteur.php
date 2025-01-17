@@ -33,7 +33,7 @@ $coursProchains = getCours7ProchainJours($idM, $connexion)
     <h1>Accueil</h1>
 </div>
 <div class="accueil_div">
-    <a class="btn border-1 border-dark btn-base p-3" href="ajoutCours_moniteur.php">Ajouter un cours</a>
+    <a class="btn border-1 border-dark btn-base p-3" href="ajouterCours_moniteur.php">Ajouter un cours</a>
     <a class="btn border-1 border-dark btn-base p-3" href="compte_moniteur.php">Consulter mes informations</a>
 </div>
 <div class="titre-deux">

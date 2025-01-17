@@ -8,20 +8,13 @@ $idM = $_SESSION["user_id"];
 require_once("../bd/connexion.php");
 $connexion = connexionBd();
 
-if (isset($_GET['idC'])) {
-    $idC = $_GET['idC'];
-}
-
-function getLeCours($connexion, $idC) {
-
-    $sql = "SELECT idC, nomC AS nomCours, dateC AS dateCours, heureC AS heureCours, dureeC AS dureeCours, niveauC AS niveauCours FROM COURS WHERE idC= :idC";
+function getIdCoursMax($connexion){
+    $sql = "SELECT MAX(idC) FROM COURS";
     $stmt = $connexion->prepare($sql);
-    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
     $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $idMax = $stmt->fetchColumn();
+    return (int) $idMax;
 }
-
-$leCours= getLeCours($connexion, $idC);
 
 function getNiveaux($connexion) {
     $sql = "SELECT DISTINCT niveauA FROM ADHERANT";
@@ -39,9 +32,11 @@ function addCreneau($connexion, $dateCreneau, $heureCreneau){
     $insertStmt->execute();
 }
 
-function updateCours($connexion, $idC, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours) {
-    $sql = "UPDATE COURS SET nomC = :nomCours, dureeC = :dureeCours, dateC = :dateCreneau, heureC = :heureCreneau, niveauC = :niveauCours WHERE idC = :idC";
+function addCours($connexion, $idM, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours) {
+    $idC= getIdCoursMax($connexion) + 1;
+    $sql = "INSERT INTO COURS values (:idC, :nomCours, 10, :dureeCours, :idM, :dateCreneau, :heureCreneau, :niveauCours)";
     $stmt = $connexion->prepare($sql);
+    $stmt->bindParam(':idM', $idM);
     $stmt->bindParam(':nomCours', $nomCours);
     $stmt->bindParam(':dureeCours', $dureeCours, PDO::PARAM_INT);
     $stmt->bindParam(':dateCreneau', $dateCreneau);
@@ -51,13 +46,9 @@ function updateCours($connexion, $idC, $nomCours, $dureeCours, $dateCreneau, $he
     $stmt->execute();
 }
 
-if (isset($_GET['idC'])) {
-    $idC = $_GET['idC'];
-}
-
 $lesNiveaux = getNiveaux($connexion);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['ajouter'])) {
     $nomCours = $_POST['nomCours'];
     $dureeCours = $_POST['dureeCours'];
 
@@ -76,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier'])) {
         addCreneau($connexion, $dateCreneau, $heureCreneau);
     }
 
-    updateCours($connexion, $idC, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours);
+    addCours($connexion, $idM, $nomCours, $dureeCours, $dateCreneau, $heureCreneau, $niveauCours);
 
     header("Location: accueil_moniteur.php");
     
@@ -88,23 +79,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier'])) {
     <h1>Modifier le cours :</h1>
 </div>
 <div>
-    <form action="modifierCours_moniteur.php?idC=<?php echo urlencode($idC); ?>" method="POST">
+    <form action="ajouterCours_moniteur.php" method="POST">
         <div>
             <label for="dateCreneau">Date :</label>
-            <input type="date" id="dateCreneau" name="dateCreneau" required
-                value="<?php echo isset($leCours[0]['dateCours']) ? htmlspecialchars($leCours[0]['dateCours']) : ''; ?>"><br>
-
+            <input type="date" id="dateCreneau" name="dateCreneau" required value=""><br>
             <label for="heureCreneau">Heure :</label>
-            <input type="time" id="heureCreneau" name="heureCreneau" required
-                value="<?php echo isset($leCours[0]['heureCours']) ? htmlspecialchars($leCours[0]['heureCours']) : ''; ?>"><br>
+            <input type="time" id="heureCreneau" name="heureCreneau" required value=""><br>
         </div>
         <div>
             <label for="nomCours">Nom du Cours :</label>
-            <input type="text" id="nomCours" name="nomCours" required
-                value="<?php echo isset($leCours[0]['nomCours']) ? htmlspecialchars($leCours[0]['nomCours']) : ''; ?>"><br>
-
+            <input type="text" id="nomCours" name="nomCours" required value=""><br>
             <label for="dureeCours">Durée du Cours (en heures) :</label>
-            <input type="number" id="dureeCours" name="dureeCours" required min="1" value="<?php echo isset($leCours[0]['dureeCours']) ? htmlspecialchars($leCours[0]['dureeCours']) : ''; ?>"><br>
+            <input type="number" id="dureeCours" name="dureeCours" required min="1" value=""><br>
         </div>
         <div>
             <label>Niveau :</label><br>
@@ -113,14 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier'])) {
             <?php else : ?>
                 <?php foreach ($lesNiveaux as $niveau) : ?>
                     <div>
-                    <input type="radio" id="niveau<?php echo htmlspecialchars($niveau['niveauA']); ?>" name="niveauCours" value="<?php echo htmlspecialchars($niveau['niveauA']); ?>"
-                    <?php echo (isset($leCours[0]['niveauCours']) && $leCours[0]['niveauCours'] == $niveau['niveauA']) ? 'checked' : ''; ?>>
+                        <input type="radio" id="niveau<?php echo htmlspecialchars($niveau['niveauA']); ?>" name="niveauCours" value="<?php echo htmlspecialchars($niveau['niveauA']);?>">
                         <label for="niveau<?php echo htmlspecialchars($niveau['niveauA']); ?>"><?php echo htmlspecialchars($niveau['niveauA']); ?></label><br>
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
         <br>
-        <button type="submit" name="modifier" class="btn border-1 border-dark btn-base">Modifier</button>
+        <button type="submit" name="ajouter" class="btn border-1 border-dark btn-base">Ajouter</button>
     </form>
 </div>
