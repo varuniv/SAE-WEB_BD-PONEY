@@ -51,6 +51,13 @@ function updateCours($connexion, $idC, $nomCours, $dureeCours, $dateCreneau, $he
     $stmt->execute();
 }
 
+function cancelCours($idC, $connexion) {
+    $deleteCours= "DELETE FROM COURS WHERE idC = :idC";
+    $stmt = $connexion->prepare($deleteCours);
+    $stmt->bindParam(':idC', $idC, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
 if (isset($_GET['idC'])) {
     $idC = $_GET['idC'];
 }
@@ -81,6 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier'])) {
     header("Location: accueil_moniteur.php");
     
 }
+
+if (isset($_POST['cancelCours']) && isset($_POST['idCancel'])) {
+    $idCancel = $_POST['idCancel'];
+    
+    cancelCours($idCancel, $connexion);
+    header("Location: accueil_moniteur.php");
+}
+
 ?>
 
 
@@ -124,3 +139,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['modifier'])) {
         <button type="submit" name="modifier" class="btn border-1 border-dark btn-base">Modifier</button>
     </form>
 </div>
+<div class="cancel_cours_div">
+    <form method="POST" onsubmit="return confirmCancel()">
+        <input type="hidden" name="idCancel" value="<?php echo htmlspecialchars($idC); ?>">
+        <button type="submit" name="cancelCours" class="btn border-1 border-dark btn-base">Annuler le cours</button>
+    </form>
+ </div>
+ <script type="text/javascript">
+    function confirmCancel() {
+        return confirm("Êtes-vous sûr de vouloir faire cette action ?");
+    }
+</script>
+</body>
+</html>

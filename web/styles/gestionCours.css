@@ -26,3 +26,8 @@ h2{
 .btn-base{
     background-color: #F5DF4D ;
 }
+
+.cancel_cours_div{
+    display: flex;
+    justify-content: center;
+}
